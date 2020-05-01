@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<desafio-sos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.sos.desafio.desafiosos.DemoApplication",
+            "projectName": "desafio-sos",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DesafioSOSApplication<desafio-sos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.sos.desafio.desafiosos.DesafioSOSApplication",
+            "projectName": "desafio-sos",
+            "args": ""
+        }
+    ]
+}

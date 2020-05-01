@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="iago">
+        <createTable tableName="patrimonio">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="marcaid" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="varchar(250)">
+            </column>
+            <column name="n_tombo" type="varchar(50)">
+            </column>
+        </createTable>
+        <createTable tableName="marca">
+            <column name="nome" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="marca_id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+   </changeSet>
+</databaseChangeLog>
