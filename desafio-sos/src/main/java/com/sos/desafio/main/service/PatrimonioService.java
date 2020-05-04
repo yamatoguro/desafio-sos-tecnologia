@@ -20,15 +20,6 @@ public class PatrimonioService {
     @Autowired
     private MarcaService marcaService;
 
-    public String save(Patrimonio patrimonio) {
-        if(patrimonio != null){
-            patrimonioRepository.save(patrimonio);
-            return "201 - Sucesso";
-        }
-        else
-            return "Patrimônio não recebido corretamente.";
-    }
-
     public PatrimonioDTO getPatrimonio(Long id) {
         return toDTO(patrimonioRepository.findById(id).get());
 	}
@@ -39,8 +30,11 @@ public class PatrimonioService {
 
 	public String update(Long id, Patrimonio patrimonio) {
 		if(patrimonio != null && id != null && id > 0){
-            patrimonio.setId(id);
-            patrimonioRepository.save(patrimonio);
+            Patrimonio p = patrimonioRepository.getOne(id);
+            p.setDescricao(patrimonio.getDescricao());
+            p.setMarcaId(patrimonio.getMarcaId());
+            p.setNome(patrimonio.getNome());
+            patrimonioRepository.save(p);
             return "201 - Sucesso";
         }
         return "Patrimônio ou id não recebido corretamente.";
@@ -56,11 +50,28 @@ public class PatrimonioService {
 
     @Transactional
 	public String cadastra(Patrimonio p) {
+        p.setN_tombo(geraTomboValido());
         patrimonioRepository.save(p);
         return p.toJson();
     }
     
-    public PatrimonioDTO toDTO(Patrimonio p){
+    private String geraTomboValido() {
+        String tombo = "";
+        geraTombo(tombo);
+        List<Patrimonio> patrimonios = patrimonioRepository.findAll();
+        patrimonios.forEach(p -> {
+            if(tombo == p.getN_tombo()){
+                geraTombo(tombo);
+            }
+        });
+        return tombo;
+    }
+
+    private void geraTombo(String tombo) {
+        tombo = Long.toHexString(Double.doubleToLongBits(Math.random()));
+    }
+
+    public PatrimonioDTO toDTO(Patrimonio p) {
         PatrimonioDTO patrimonio =  new PatrimonioDTO(p);
         patrimonio.setMarca(marcaService.getMarca(patrimonio.getMarcaId()).getNome());
         return patrimonio;
