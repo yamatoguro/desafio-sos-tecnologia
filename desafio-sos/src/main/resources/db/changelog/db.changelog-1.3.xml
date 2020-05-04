@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="4" author="iago">
+        <addAutoIncrement 
+            catalogName="local"
+            columnDataType="int"
+            columnName="id"
+            defaultOnNull="false"
+            generationType="ALWAYS"
+            incrementBy="1"
+            schemaName="public"
+            startWith="1"
+            tableName="patrimonio"/>
+        <addAutoIncrement 
+            catalogName="local"
+            columnDataType="int"
+            columnName="marca_id"
+            defaultOnNull="false"
+            generationType="ALWAYS"
+            incrementBy="1"
+            schemaName="public"
+            startWith="1"
+            tableName="marca"/>
+   </changeSet>
+</databaseChangeLog>

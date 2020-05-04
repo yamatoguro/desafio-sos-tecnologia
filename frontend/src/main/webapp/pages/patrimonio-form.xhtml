@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/index.xhtml">
+    <ui:define name="content">
+        <h:form id="patrimonioForm">
+            <p:panel header="Patrimonio Details">
+                <h:panelGrid columns="1">
+                    <p:outputLabel for="nome" value="Nome: " />
+                    <p:inputText id="nome" value="#{patrimonioController.patrimonio.nome}" />
+                    <p:outputLabel for="marcaId" value="Marca Id: " />
+                    <p:inputText type="number" id="marcaId" value="#{patrimonioController.patrimonio.marcaId}" />
+                    <p:outputLabel for="descricao" value="Descrição: " />
+                    <p:inputText id="descricao" value="#{patrimonioController.patrimonio.descricao}" />
+                    <p:outputLabel for="n_tombo" value="Nº do tombo: " />
+                    <p:inputText id="n_tombo" value="#{patrimonioController.patrimonio.n_tombo}" /> 
+                    <h:commandButton value="Salvar" action="#{patrimonioController.save}" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

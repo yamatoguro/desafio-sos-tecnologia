@@ -1,31 +1,75 @@
 package com.sos.desafio.main.controller;
 
-import com.sos.desafio.main.model.Patrimonio;
-import com.sos.desafio.main.repository.PatrimonioRepository;
+import com.sos.desafio.main.model.dto.PatrimonioDTO;
+import com.sos.desafio.main.service.PatrimonioService;
 
-import org.ocpsoft.rewrite.annotation.Join;
-import org.ocpsoft.rewrite.el.ELBeanName;
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Scope(value = "session")
-@Component(value = "patrimonioController")
-@ELBeanName(value = "patrimonioController")
-@Join(path = "/patrimonio", to = "/patrimonio-form.jsf")
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
+/**
+ * @method GET /patrimonios
+ * @return Obter todos os patrimônios
+ * 
+ * @method GET /patrimonios/{id}
+ * @return Obter um patrimônio por ID
+ * 
+ * @method POST /patrimonios
+ * @return Inserir um novo patrimônio
+ * 
+ * @method PUT /patrimonios/{id}
+ * @return Alterar os dados de um patrimônio
+ * 
+ * @method DELETE /patrimonios/{id}
+ * @return Excluir um patrimônio
+ */
+@RestController
+@RequestMapping(path = "/patrimonios", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PatrimonioController {
+
     @Autowired
-    private PatrimonioRepository PatrimonioRepository;
+    private PatrimonioService patrimonioService;
 
-    private Patrimonio patrimonio = new Patrimonio();
-
-    public String save(Patrimonio patrimonio) {
-        PatrimonioRepository.save(patrimonio);
-        patrimonio = new Patrimonio();
-        return "/patrimonio-list.xhtml?faces-redirect=true";
+    @GetMapping
+    public PatrimonioDTO[] getPatrimonios() {
+        return patrimonioService.getAll();
     }
 
-    public Patrimonio getPatrimonio() {
-        return patrimonio;
+    @GetMapping(path = "/{id}")
+    public PatrimonioDTO getPatrimonio(@RequestParam String id) {
+        return patrimonioService.getPatrimonio(Long.parseLong(id));
+    }
+
+    @PostMapping
+    public String cadastraPatrimonio(@RequestBody String patrimonio) {
+        PatrimonioDTO p;
+        try {
+            p = (PatrimonioDTO) new JSONParser(patrimonio).parse();
+            return patrimonioService.cadastra(p.toObj());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+    @PutMapping(value="/{id}")
+    public String atualizaPatrimonio(@PathVariable Long id, @RequestBody PatrimonioDTO patrimonio) {
+        return patrimonioService.update(id, patrimonio.toObj());
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public String deletePatrimonio(@PathVariable Long id) {
+        return patrimonioService.delete(id);
     }
 }

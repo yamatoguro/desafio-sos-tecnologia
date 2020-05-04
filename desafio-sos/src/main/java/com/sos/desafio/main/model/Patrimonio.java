@@ -1,11 +1,25 @@
 package com.sos.desafio.main.model;
 
-import lombok.Data;
-import javax.persistence.*;
-import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
-@Data
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Component
 @Table(name = "patrimonio")
@@ -25,4 +39,17 @@ public class Patrimonio implements Serializable {
 
     @Column(name = "descricao")
     private String descricao;
+
+    @Column(name = "n_tombo")
+    private String n_tombo;
+
+    public String toJson() 
+    { 
+        return "{" +
+        "\"id\":" + id +
+        "\"marcaId\":" + marcaId +
+        "\"nome\":" + nome +
+        "\"descricao\":" + descricao +
+        "\"n_tombo\":" + n_tombo + "}"; 
+    } 
 }

@@ -1,36 +1,36 @@
-package com.sos.desafio.main.model;
+package com.sos.front.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import org.springframework.stereotype.Component;
-import java.io.Serializable;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Component
-@Table(name = "marca")
-public class Marca implements Serializable {
+public class Patrimonio implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "marca_id")
+    private Long id;
     private Long marcaId;
-
-    @Column(name = "nome")
+    private String marca;
     private String nome;
-
+    private String descricao;
+    private String n_tombo;
     public String toJson() 
     { 
         return "{" +
+        "\"id\":" + id +
         "\"marcaId\":" + marcaId +
-        "\"nome\":" + nome + "}"; 
+        "\"nome\":" + nome +
+        "\"descricao\":" + descricao +
+        "\"n_tombo\":" + n_tombo + "}"; 
     } 
 }
+
