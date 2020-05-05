@@ -43,13 +43,17 @@ public class Patrimonio implements Serializable {
     @Column(name = "n_tombo")
     private String n_tombo;
 
+    @Column(name = "pdf")
+    private String pdf;
+
     public String toJson() 
     { 
         return "{" +
-        "\"id\":" + id +
-        "\"marcaId\":" + marcaId +
-        "\"nome\":" + nome +
-        "\"descricao\":" + descricao +
-        "\"n_tombo\":" + n_tombo + "}"; 
+        "\"id\":" + "\"" +id + "\"" +
+        ",\"marcaId\":" + "\"" + marcaId + "\"" +
+        ",\"nome\":" + nome +
+        ",\"descricao\":" + "\"" + descricao + "\"" +
+        ",\"n_tombo\":" + "\"" + n_tombo + "\"" + 
+        ",\"pdf\"" + "\"" + pdf + "\"" +"}"; 
     } 
 }

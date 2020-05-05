@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
@@ -15,16 +14,14 @@ import java.io.Serializable;
 public class Marca implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
     private Long marcaId;
-
     private String nome;
-
+    private String pdf;
     public String toJson() 
     { 
         return "{" +
         "\"marcaId\":" + marcaId +
-        "\"nome\":" + nome + "}"; 
+        ",\"nome\":" + nome + "}"; 
     } 
 }
 

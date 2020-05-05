@@ -1,22 +1,27 @@
 package com.sos.desafio.main.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.net.URLDecoder;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.sos.desafio.main.model.dto.PatrimonioCadastroDTO;
 import com.sos.desafio.main.model.dto.PatrimonioDTO;
 import com.sos.desafio.main.service.PatrimonioService;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @method GET /patrimonios
@@ -52,18 +57,18 @@ public class PatrimonioController {
     }
 
     @PostMapping
-    public String cadastraPatrimonio(@RequestBody String patrimonio) {
-        PatrimonioDTO p;
-        try {
-            p = (PatrimonioDTO) new JSONParser(patrimonio).parse();
-            return patrimonioService.cadastra(p.toObj());
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return e.getMessage();
-        }
+    public String cadastraPatrimonio(@RequestBody String patrimonio)
+            throws ParseException, UnsupportedEncodingException {
+        String decodedQuery = URLDecoder.decode(patrimonio, "UTF-8");
+        decodedQuery = decodedQuery.replace("=", "");
+        Gson gson = new Gson();
+        Type type = new TypeToken<PatrimonioCadastroDTO>() {
+        }.getType();
+        PatrimonioCadastroDTO p = gson.fromJson(decodedQuery, type);
+        return patrimonioService.cadastra(p.toObj());
     }
 
-    @PutMapping(value="/{id}")
+    @PutMapping(value = "/{id}")
     public String atualizaPatrimonio(@PathVariable Long id, @RequestBody PatrimonioDTO patrimonio) {
         return patrimonioService.update(id, patrimonio.toObj());
     }

@@ -19,16 +19,18 @@ public class PatrimonioDTO {
     private String nome;
     private String descricao;
     private String n_tombo;
+    private String pdf;
 
     public String toJson() 
     { 
         return "{" +
-        "\"id\":" + id +
-        "\"marca\":" + marca +
-        "\"nome\":" + nome +
-        "\"descricao\":" + descricao +
-        "\"n_tombo\":" + n_tombo + "}"; 
-    }
+        "\"id\":" + "\"" +id + "\"" +
+        ",\"marca\":" + "\"" + marca + "\"" +
+        ",\"nome\":" + nome +
+        ",\"descricao\":" + "\"" + descricao + "\"" +
+        ",\"n_tombo\":" + "\"" + n_tombo + "\"" + 
+        ",\"pdf\"" + "\"" + pdf + "\"" +"}"; 
+    } 
 
 	public PatrimonioDTO(Patrimonio p) {
         this.id = p.getId();
@@ -36,6 +38,7 @@ public class PatrimonioDTO {
         this.nome = p.getNome();
         this.descricao = p.getDescricao();
         this.n_tombo = p.getN_tombo();
+        this.pdf = p.getPdf();
 	}
 
 	public Patrimonio toObj() {
@@ -45,6 +48,7 @@ public class PatrimonioDTO {
         p.setNome(this.nome);
         p.setDescricao(this.descricao);
         p.setN_tombo(this.n_tombo);
+        p.setPdf(this.pdf);
         return p;
 	} 
 }

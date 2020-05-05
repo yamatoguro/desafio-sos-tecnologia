@@ -27,10 +27,14 @@ public class Marca implements Serializable {
     @Column(name = "nome")
     private String nome;
 
+    @Column(name = "pdf")
+    private String pdf;
+
     public String toJson() 
     { 
         return "{" +
-        "\"marcaId\":" + marcaId +
-        "\"nome\":" + nome + "}"; 
+        ",\"marcaId\"" + "\"" + marcaId + "\"" +
+        ",\"nome\"" + "\"" + nome + "\"" + 
+        ",\"pdf\"" + "\"" + pdf + "\"" +"}";  
     } 
 }

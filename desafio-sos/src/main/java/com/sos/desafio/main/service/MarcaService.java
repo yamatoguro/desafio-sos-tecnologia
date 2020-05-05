@@ -27,7 +27,8 @@ public class MarcaService {
 	}
 
 	public Marca[] getAll() {
-		return (Marca[]) marcaRepository.findAll().toArray();
+        Marca[] marcas = new Marca[Integer.parseInt(marcaRepository.count()+"")];
+		return marcaRepository.findAll().toArray(marcas);
 	}
 
 	public String update(Long id, Marca marca) {
