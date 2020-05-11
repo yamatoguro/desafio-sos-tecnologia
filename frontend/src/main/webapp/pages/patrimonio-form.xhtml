@@ -13,10 +13,10 @@
                         <p:outputLabel for="nome" value="Nome: " />
                         <p:inputText id="nome" value="#{patrimonio.patrimonio.nome}" />
                         <p:outputLabel value="Marca: " />
-                        <h:selectOneMenu value="#{patrimonio.patrimonio.marcaId}">
+                        <p:selectOneMenu value="#{patrimonio.patrimonio.marcaId}">
                             <f:selectItems value="#{marca.marcas}" var="m"
                                            itemLabel="#{m.nome}" itemValue="#{m.marcaId}" />
-                        </h:selectOneMenu>
+                        </p:selectOneMenu>
                         <p:outputLabel for="descricao" value="Descrição: " />
                         <p:inputText id="descricao" value="#{patrimonio.patrimonio.descricao}" />
                         <p:outputLabel for="n_tombo" value="Nº do tombo: " />

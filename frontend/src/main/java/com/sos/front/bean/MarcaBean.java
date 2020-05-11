@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import org.apache.http.HttpEntity;
 
@@ -41,6 +42,15 @@ public class MarcaBean implements Serializable {
     public List<Marca> marcas;
     public Marca marca = new Marca();
     public Part file;
+    public Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Marca getMarca() {
         return marca;
@@ -58,7 +68,7 @@ public class MarcaBean implements Serializable {
         this.file = file;
     }
 
-    public void getMarcaFromAPI(Long id) throws IOException {
+    public void getMarcaFromAPI() throws IOException {
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(ConfigEnum.API_URL.getDescricao() + "/marcas/" + id);
         HttpResponse response = client.execute(request);
@@ -73,6 +83,7 @@ public class MarcaBean implements Serializable {
             output += line;
         }
         marca = parseObjJSON(output);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("marca-form.jsf");
     }
 
     public List<Marca> getMarcas() throws IOException, JSONException {
@@ -124,14 +135,8 @@ public class MarcaBean implements Serializable {
             HttpResponse response = client.execute(post);
             BufferedReader rd = new BufferedReader(new InputStreamReader(
                     response.getEntity().getContent()));
-
-            String line = "";
-            while ((line = rd.readLine()) != null) {
-                System.out.println(line);
-                if (line.startsWith("Auth=")) {
-                    String key = line.substring(5);
-                }
-            }
+            System.out.println(rd.lines());
+            FacesContext.getCurrentInstance().getExternalContext().redirect("marca-list.jsf");
         } catch (IOException e) {
             System.out.println(e);
         }

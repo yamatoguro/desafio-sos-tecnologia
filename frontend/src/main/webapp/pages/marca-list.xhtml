@@ -19,11 +19,15 @@
                     </p:dataTable>
                     <br/><br/>
                     <h:form id="marcaEdit">
-                        <h:selectOneMenu id="select" value="#{marca.marca.marcaId}">
-                            <f:selectItems value="#{marca.marcas}" var="m"
-                                           itemLabel="#{m.nome}" itemValue="#{m.marcaId}" />
-                        </h:selectOneMenu> <br/><br/>
-                        <p:button value="#{marca.marca.marcaId}" href="marca-form.jsf" onclick="#{marca.getMarcaFromAPI(select.value)}"/>
+                        <p:selectOneMenu id="select" value="#{marca.id}">
+                            <f:selectItems 
+                                value="#{marca.marcas}" var="m"
+                                itemLabel="#{m.nome}"
+                                itemValue="#{m.marcaId}"/>
+                            <p:ajax update="label" />
+                        </p:selectOneMenu>
+                        <br/><br/>
+                        <h:commandButton id="label" action="#{marca.getMarcaFromAPI()}" value="Editar Marca"/>
                     </h:form>
                 </p:panel>
             </h:form>
