@@ -41,7 +41,7 @@
                         </p:column>
                     </p:dataTable>
                     <br/><br/>
-                    <h:form id="patrimonioEdit">
+                    <h:form id="patrimonioEdit" rendered="#{patrimonio.patrimonios.size() > 0}">
                         <p:selectOneMenu id="select" value="#{patrimonio.id}">
                             <f:selectItems 
                                 value="#{patrimonio.patrimonios}" var="p"
@@ -49,7 +49,7 @@
                                 itemValue="#{p.id}"/>
                         </p:selectOneMenu>
                         <br/><br/>
-                        <p:commandButton id="edit" 
+                        <p:commandButton id="edit"
                                          action="#{patrimonio.getPatrimonioFromAPI()}" 
                                          value="Editar Patrimônio" 
                                          styleClass="ui-priority-primary"

@@ -117,15 +117,17 @@ public class PatrimonioBean implements Serializable {
             output += line;
         }
         patrimonios = parseJSON(output);
-        patrimonios.forEach(p -> {
-            if (p.getPdf() != null) {
-                try {
-                    p.setPdf(new String(p.getPdf().getBytes("iso-8859-1"), "UTF-8"));
-                } catch (UnsupportedEncodingException ex) {
-                    Logger.getLogger(PatrimonioBean.class.getName()).log(Level.SEVERE, null, ex);
+        if (patrimonios.size() > 0) {
+            patrimonios.forEach(p -> {
+                if (p.getPdf() != null) {
+                    try {
+                        p.setPdf(new String(p.getPdf().getBytes("iso-8859-1"), "UTF-8"));
+                    } catch (UnsupportedEncodingException ex) {
+                        Logger.getLogger(PatrimonioBean.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-        });
+            });
+        }
         return patrimonios;
     }
 
@@ -232,7 +234,6 @@ public class PatrimonioBean implements Serializable {
                 StringBody comment = new StringBody("Arquivo: " + file.getSubmittedFileName() + " | do tipo:", ContentType.TEXT_PLAIN);
 
                 HttpEntity reqEntity = MultipartEntityBuilder.create()
-                        .setCharset(Charset.forName("UTF-8"))
                         .addPart("file", new InputStreamBody(input, file.getSubmittedFileName()))
                         .addPart("comment", comment)
                         .build();
@@ -262,7 +263,6 @@ public class PatrimonioBean implements Serializable {
     }
 
     public StreamedContent download(String pdf) throws MalformedURLException, IOException {
-        pdf = new String(pdf.getBytes("iso-8859-1"), "UTF-8");
         File f = new File(pdf);
         FileUtils.copyURLToFile(new URL(ConfigEnum.API_URL.getDescricao() + "/arquivos/" + pdf), f);
         String contentType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(f.getAbsolutePath());
