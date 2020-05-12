@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:composition template="/index.xhtml">
+    <ui:composition template="/pages/listas.xhtml">
         <ui:define name="content">
             <h:form id="patrimonioForm" enctype="multipart/form-data">
                 <p:panel header="Patrimonio Details">
@@ -22,7 +22,8 @@
                         <p:outputLabel for="n_tombo" value="Nº do tombo: " />
                         <p:inputText disabled="true" id="n_tombo" value="#{patrimonio.patrimonio.n_tombo}" /> 
                         <h:inputFile value="#{patrimonio.file}" />
-                        <h:commandButton value="Salvar" action="#{patrimonio.save}" />
+                        <h:commandButton rendered="#{patrimonio.id == null}" value="Salvar" action="#{patrimonio.save}" />
+                        <h:commandButton rendered="#{patrimonio.id != null}" value="Editar" action="#{patrimonio.update}" />
                     </h:panelGrid>
                 </p:panel>
             </h:form>

@@ -36,7 +36,7 @@ public class PatrimonioService {
 
     public String update(final Long id, final Patrimonio patrimonio) {
         if (patrimonio != null && id != null && id > 0) {
-            final Patrimonio p = patrimonioRepository.getOne(id);
+            Patrimonio p = patrimonioRepository.getOne(id);
             p.setDescricao(patrimonio.getDescricao());
             p.setMarcaId(patrimonio.getMarcaId());
             p.setNome(patrimonio.getNome());

@@ -4,8 +4,7 @@ import java.nio.file.Paths;
 
 public enum ConfigEnum {
     
-    API_URL("http://localhost:12333"),
-    APPLICATION_LOCATION(Paths.get("").toAbsolutePath().toString());
+    API_URL("http://localhost:12333");
  
     private final String descricao;
  
